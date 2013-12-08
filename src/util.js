@@ -79,8 +79,8 @@ module.exports = {
   formatValue: function (value) {
     if (typeof value == 'number') {
       value = value/100000000;
-      // at least two decimal places
-      return Math.floor(value*10)==value*10 ? value.toFixed(2) : ''+value;
+      // at least two decimal places and avoid scientific notation
+      return Math.floor(value*10)==value*10 ? value.toFixed(2) : value.toFixed(8).replace(/0+$/,'');
     } else {
       value = module.exports.valueToBigInt(value).toString();
       var integerPart = value.length > 8 ? value.substr(0, value.length-8) : '0';
